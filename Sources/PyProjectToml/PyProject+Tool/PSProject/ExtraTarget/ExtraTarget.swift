@@ -4,7 +4,7 @@
 //
 //  Created by CodeBuilder on 18/11/2025.
 //
-import Backends
+//import Backends
 import PathKit
 
 extension Tool.PSProject {
@@ -30,30 +30,30 @@ extension Tool.PSProject {
         }
         
         
-        private var _loaded_backends: [any BackendProtocol] = []
-        
-        @MainActor
-        public func loaded_backends() throws -> [any BackendProtocol] {
-            print(Self.self, "loaded_backends")
-            if _loaded_backends.isEmpty {
-                self._loaded_backends = try self.get_backends()
-            }
-            return _loaded_backends
-        }
-        @MainActor
-        private func get_backends()  throws ->  [any BackendProtocol] {
-            let backends_root = Path.ps_shared + "backends"
-            let backends = backends ?? []
-            
-            return try (backends).compactMap { b in
-                switch PSBackend(rawValue: b) {
-                    case .kivylauncher: KivyLauncher()
-                    case .kivy3launcher: Kivy3Launcher()
-                    case .pyswiftui: PySwiftUI()
-                    case .none: fatalError()
-                }
-            }
-            
-        }
+//        private var _loaded_backends: [any BackendProtocol] = []
+//        
+//        @MainActor
+//        public func loaded_backends() throws -> [any BackendProtocol] {
+//            print(Self.self, "loaded_backends")
+//            if _loaded_backends.isEmpty {
+//                self._loaded_backends = try self.get_backends()
+//            }
+//            return _loaded_backends
+//        }
+//        @MainActor
+//        private func get_backends()  throws ->  [any BackendProtocol] {
+//            let backends_root = Path.ps_shared + "backends"
+//            let backends = backends ?? []
+//            
+//            return try (backends).compactMap { b in
+//                switch PSBackend(rawValue: b) {
+//                    case .kivylauncher: KivyLauncher()
+//                    case .kivy3launcher: Kivy3Launcher()
+//                    case .pyswiftui: PySwiftUI()
+//                    case .none: fatalError()
+//                }
+//            }
+//            
+//        }
     }
 }

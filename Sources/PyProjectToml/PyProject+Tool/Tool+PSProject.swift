@@ -4,7 +4,7 @@
 //
 //import PSBackend
 import PathKit
-import Backends
+//import Backends
 //import PySwiftKit
 
 extension Path {
@@ -89,34 +89,34 @@ extension Tool {
             self.extra_targets = try container.decodeIfPresent([ExtraTarget].self, forKey: .extra_targets) ?? []
         }
         
-        private var _loaded_backends: [any BackendProtocol] = []
-        
-        @MainActor
-        public func loaded_backends() throws -> [any BackendProtocol] {
-            print(Self.self, "loaded_backends")
-            if _loaded_backends.isEmpty {
-                self._loaded_backends = try self.get_backends()
-            }
-            return _loaded_backends
-        }
-        @MainActor
-        private func get_backends()  throws ->  [any BackendProtocol] {
-            let backends_root = Path.ps_shared + "backends"
-            var backends = backends ?? []
-            
-            
-            print("get_backends: \(backends)")
-            return try (backends).compactMap { b in
-                switch PSBackend(rawValue: b) {
-                    case .kivylauncher: KivyLauncher()
-                    case .kivy3launcher: Kivy3Launcher()
-                    case .pyswiftui: PySwiftUI()
-                    case .none: fatalError()
-                }
-            }
-            
-        }
-        
+//        private var _loaded_backends: [any BackendProtocol] = []
+//        
+//        @MainActor
+//        public func loaded_backends() throws -> [any BackendProtocol] {
+//            print(Self.self, "loaded_backends")
+//            if _loaded_backends.isEmpty {
+//                self._loaded_backends = try self.get_backends()
+//            }
+//            return _loaded_backends
+//        }
+//        @MainActor
+//        private func get_backends()  throws ->  [any BackendProtocol] {
+//            let backends_root = Path.ps_shared + "backends"
+//            var backends = backends ?? []
+//            
+//            
+//            print("get_backends: \(backends)")
+//            return try (backends).compactMap { b in
+//                switch PSBackend(rawValue: b) {
+//                    case .kivylauncher: KivyLauncher()
+//                    case .kivy3launcher: Kivy3Launcher()
+//                    case .pyswiftui: PySwiftUI()
+//                    case .none: fatalError()
+//                }
+//            }
+//            
+//        }
+//        
     }
     
     
@@ -147,27 +147,27 @@ extension Tool.PSProject {
 }
 
 
-extension Tool.PSProject {
-    public func contextPlatforms(workingDir: Path) throws -> [any ContextProtocol] {
-        var plats: [any ContextProtocol] = []
-        
-        if let ios {
-            plats.append(try PlatformContext(arch: Archs.Arm64(), sdk: SDKS.IphoneOS(), root: workingDir))
-            switch arch_info {
-                case .intel64:
-                    plats.append(try PlatformContext(arch: Archs.X86_64(), sdk: SDKS.IphoneSimulator(), root: workingDir))
-                case .arm64:
-                    plats.append(try PlatformContext(arch: Archs.Arm64(), sdk: SDKS.IphoneSimulator(), root: workingDir))
-                default: break
-            }
-        }
-        
-        if let macos {
-            
-        }
-        
-        return plats
-    }
-    
-    
-}
+//extension Tool.PSProject {
+//    public func contextPlatforms(workingDir: Path) throws -> [any ContextProtocol] {
+//        var plats: [any ContextProtocol] = []
+//        
+//        if let ios {
+//            plats.append(try PlatformContext(arch: Archs.Arm64(), sdk: SDKS.IphoneOS(), root: workingDir))
+//            switch arch_info {
+//                case .intel64:
+//                    plats.append(try PlatformContext(arch: Archs.X86_64(), sdk: SDKS.IphoneSimulator(), root: workingDir))
+//                case .arm64:
+//                    plats.append(try PlatformContext(arch: Archs.Arm64(), sdk: SDKS.IphoneSimulator(), root: workingDir))
+//                default: break
+//            }
+//        }
+//        
+//        if let macos {
+//            
+//        }
+//        
+//        return plats
+//    }
+//    
+//    
+//}

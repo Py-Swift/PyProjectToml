@@ -5,7 +5,7 @@
 import Foundation
 import PathKit
 import TOMLKit
-import Backends
+//import Backends
 import PSTools
 
 
@@ -168,7 +168,10 @@ extension PyProjectToml {
 extension Dictionary where Key == String, Value == any TOMLValueConvertible {
     init(table: TOMLTable) {
         self = table.reduce([:], { partialResult, next in
-            partialResult.merged([next.0:next.1])
+            //partialResult.merged([next.0:next.1])
+            partialResult.merging([next.0:next.1]) { old, new in
+                new
+            }
         })
     }
 }
