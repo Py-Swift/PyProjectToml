@@ -23,7 +23,7 @@ extension Tool {
         //public let pip_install_app: Bool?
         public let copy__main__py: Bool
         public let backends: [String]?
-        public let dependencies: Dependencies?
+        //public let dependencies: Dependencies?
         
         public let exclude_dependencies: [String]?
         
@@ -36,16 +36,19 @@ extension Tool {
         public var ios: Platforms.iOS?
         public var macos: Platforms.macOS?
         
-        public var extra_targets: [ExtraTarget]
+        public var swift_packages: [String: SwiftPackage]
+        
+        public var extra_targets: [String:ExtraTarget]
         
         private enum CodingKeys: CodingKey {
             case app_name
             case swift_main
             case swift_sources
+            case swift_packages
             case pip_install_app
             case copy_main_py
             case backends
-            case dependencies
+            //case dependencies
             case platforms
             case exclude_dependencies
             case extra_index
@@ -71,7 +74,7 @@ extension Tool {
             //self.pip_install_app = try container.decodeIfPresent(Bool.self, forKey: .pip_install_app)
             self.copy__main__py = try container.decodeIfPresent(Bool.self, forKey: .copy_main_py) ?? true
             self.backends = try container.decodeIfPresent([String].self, forKey: .backends)
-            self.dependencies = try container.decodeIfPresent(Dependencies.self, forKey: .dependencies)
+            //self.dependencies = try container.decodeIfPresent(Dependencies.self, forKey: .dependencies)
             
             self.exclude_dependencies = try container.decodeIfPresent([String].self, forKey: .exclude_dependencies)
             self.extra_index = try container.decodeIfPresent([String].self, forKey: .extra_index) ?? [
@@ -83,10 +86,12 @@ extension Tool {
             
             self.cythonized = try container.decodeIfPresent(Bool.self, forKey: .cythonized) ?? false
             
+            self.swift_packages = try container.decodeIfPresent([String:SwiftPackage].self, forKey: .swift_packages) ?? [:]
+            
             self.android = try container.decodeIfPresent(Platforms.Android.self, forKey: .android)
             self.ios = try container.decodeIfPresent(Platforms.iOS.self, forKey: .ios)
             self.macos = try container.decodeIfPresent(Platforms.macOS.self, forKey: .macos)
-            self.extra_targets = try container.decodeIfPresent([ExtraTarget].self, forKey: .extra_targets) ?? []
+            self.extra_targets = try container.decodeIfPresent([String:ExtraTarget].self, forKey: .extra_targets) ?? [:]
         }
         
 //        private var _loaded_backends: [any BackendProtocol] = []

@@ -18,7 +18,7 @@ public final class PyProjectToml: Decodable {
     public var root: Path?
     
     
-    private var backendsIsLoaded = false
+    public var backendsIsLoaded = false
     //private var loadedBackends: [any BackendProtocol] = []
     
     enum CodingKeys: String, CodingKey {
