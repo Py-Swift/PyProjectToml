@@ -10,7 +10,7 @@ import JSONUtilities
 
 extension Tool.PSProject {
     public final class ExtraTarget: Decodable {
-        public let name: String
+        public var name: String?
         public let type: TargetType
         public let sources: [Path]?
         public let explicit_site: Bool
@@ -29,7 +29,7 @@ extension Tool.PSProject {
         
         public init(from decoder: any Decoder) throws {
             let container: KeyedDecodingContainer<Tool.PSProject.ExtraTarget.CodingKeys> = try decoder.container(keyedBy: Tool.PSProject.ExtraTarget.CodingKeys.self)
-            self.name = try container.decode(String.self, forKey: Tool.PSProject.ExtraTarget.CodingKeys.name)
+            //self.name = try container.decode(String.self, forKey: Tool.PSProject.ExtraTarget.CodingKeys.name)
             self.explicit_site = try container.decodeIfPresent(Bool.self, forKey: Tool.PSProject.ExtraTarget.CodingKeys.explicit_site) ?? false
             self.backends = try container.decodeIfPresent([String].self, forKey: Tool.PSProject.ExtraTarget.CodingKeys.backends) ?? []
             self.extra_dependencies = try container.decodeIfPresent([String].self, forKey: Tool.PSProject.ExtraTarget.CodingKeys.extra_dependencies) ?? []

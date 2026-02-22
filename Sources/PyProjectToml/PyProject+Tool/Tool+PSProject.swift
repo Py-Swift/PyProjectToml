@@ -92,6 +92,10 @@ extension Tool {
             self.ios = try container.decodeIfPresent(Platforms.iOS.self, forKey: .ios)
             self.macos = try container.decodeIfPresent(Platforms.macOS.self, forKey: .macos)
             self.extra_targets = try container.decodeIfPresent([String:ExtraTarget].self, forKey: .extra_targets) ?? [:]
+            
+            for (k,v) in extra_targets {
+                v.name = k
+            }
         }
         
 //        private var _loaded_backends: [any BackendProtocol] = []
